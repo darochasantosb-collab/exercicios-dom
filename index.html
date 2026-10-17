@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios de Manipulação da Árvore DOM</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .destaque {
+            background-color: #fef08a;
+            border: 2px solid #eab308;
+            padding: 12px;
+        }
+
+        .oculto {
+            display: none;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Exercícios de Manipulação da Árvore DOM</h1>
+
+    <!-- Exercício 1 -->
+    <section>
+        <h2>Exercício 1: Alterando o Conteúdo</h2>
+
+        <div id="container">
+            <h3 id="titulo-boas-vindas">Texto Inicial...</h3>
+        </div>
+
+        <button id="btn-alterar-titulo">Alterar Título</button>
+    </section>
+
+    <!-- Exercício 2 -->
+    <section>
+        <h2>Exercício 2: Adicionando Itens à Lista</h2>
+
+        <h3>Minha Lista de Tarefas</h3>
+
+        <ul id="lista-tarefas">
+            <li>Estudar sintaxe básica do JS</li>
+        </ul>
+
+        <input
+            type="text"
+            id="campo-tarefa"
+            placeholder="Digite uma nova tarefa"
+        >
+
+        <button id="btn-adicionar">Adicionar Tarefa</button>
+    </section>
+
+    <!-- Exercício 3 -->
+    <section>
+        <h2>Exercício 3: Alterando Estilos CSS</h2>
+
+        <div id="painel" class="oculto">
+            <p>Mensagem importante para o usuário!</p>
+        </div>
+
+        <button id="btn-mostrar-painel">Mostrar Painel</button>
+    </section>
+
+    <!-- Exercício 4 -->
+    <section>
+        <h2>Exercício 4: Removendo Notificações</h2>
+
+        <ul id="notificacoes">
+            <li>Notificação 1: Atualização de sistema</li>
+            <li>Notificação 2: Novo e-mail recebido</li>
+            <li>Notificação 3: Lembrete de aula</li>
+        </ul>
+
+        <button id="btn-remover-notificacao">
+            Remover Primeira Notificação
+        </button>
+    </section>
+
+    <!-- Exercício 5 -->
+    <section>
+        <h2>Exercício 5: Evento de Clique</h2>
+
+        <div>
+            <input
+                type="text"
+                id="campo-nome"
+                placeholder="Digite seu nome"
+            >
+
+            <button id="btn-exibir">Exibir Mensagem</button>
+
+            <p id="resposta"></p>
+        </div>
+    </section>
+
+    <script>
+        // EXERCÍCIO 1: Alterando o conteúdo de um elemento
+
+        const titulo = document.getElementById("titulo-boas-vindas");
+        const botaoTitulo = document.getElementById("btn-alterar-titulo");
+
+        botaoTitulo.addEventListener("click", function() {
+            titulo.textContent =
+                "Bem-vindo ao Curso de Desenvolvimento de Sistemas!";
+        });
+
+
+        // EXERCÍCIO 2: Criando e adicionando elementos dinamicamente
+
+        function adicionarItem(texto) {
+            const lista = document.getElementById("lista-tarefas");
+            const novoItem = document.createElement("li");
+
+            novoItem.textContent = texto;
+            lista.appendChild(novoItem);
+        }
+
+        const campoTarefa = document.getElementById("campo-tarefa");
+        const botaoAdicionar = document.getElementById("btn-adicionar");
+
+        botaoAdicionar.addEventListener("click", function() {
+            const texto = campoTarefa.value.trim();
+
+            if (texto !== "") {
+                adicionarItem(texto);
+                campoTarefa.value = "";
+                campoTarefa.focus();
+            } else {
+                alert("Digite uma tarefa antes de adicionar!");
+            }
+        });
+
+
+        // EXERCÍCIO 3: Alterando estilos CSS com classList
+
+        const painel = document.getElementById("painel");
+        const botaoPainel = document.getElementById("btn-mostrar-painel");
+
+        botaoPainel.addEventListener("click", function() {
+            painel.classList.remove("oculto");
+            painel.classList.add("destaque");
+        });
+
+
+        // EXERCÍCIO 4: Removendo a primeira notificação
+
+        function removerPrimeiraNotificacao() {
+            const lista = document.getElementById("notificacoes");
+
+            if (lista.firstElementChild) {
+                lista.firstElementChild.remove();
+            } else {
+                alert("Não existem mais notificações!");
+            }
+        }
+
+        const botaoRemover =
+            document.getElementById("btn-remover-notificacao");
+
+        botaoRemover.addEventListener(
+            "click",
+            removerPrimeiraNotificacao
+        );
+
+
+        // EXERCÍCIO 5: Manipulação com eventos de clique
+
+        const botaoExibir = document.getElementById("btn-exibir");
+
+        botaoExibir.addEventListener("click", function() {
+            const nome = document
+                .getElementById("campo-nome")
+                .value
+                .trim();
+
+            const resposta = document.getElementById("resposta");
+
+            if (nome !== "") {p
+                resposta.textContent =
+                    "Olá, " + nome + "! Seja bem-vindo(a)!";
+            } else {
+                resposta.textContent = "Por favor, digite seu nome.";
+            }
+        });
+    </script>
+
+</body>
+</html>
